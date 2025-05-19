@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh Sách Mặt Bằng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        a {
+            display: inline-block;
+            padding: 8px 16px;
+            text-decoration: none;
+            color: white;
+            border-radius: 4px;
+        }
+        .add-btn {
+            background-color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .edit-btn {
+            background-color: #2196F3;
+            margin-right: 5px;
+        }
+        .delete-btn {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+<h1>Danh Sách Mặt Bằng</h1>
+<div style="text-align: center;">
+    <a href="/floor-spaces/add" class="add-btn">Thêm Mặt Bằng</a>
+</div>
+<table>
+    <tr>
+        <th>Code</th>
+        <th>Area</th>
+        <th>Status</th>
+        <th>Floor</th>
+        <th>Type</th>
+        <th>Price</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="floorSpace : ${floorSpaces}">
+        <td th:text="${floorSpace.code}"></td>
+        <td th:text="${floorSpace.area}"></td>
+        <td th:text="${floorSpace.status.displayName}"></td>
+        <td th:text="${floorSpace.floor}"></td>
+        <td th:text="${floorSpace.type.displayName}"></td>
+        <td th:text="${floorSpace.price}"></td>
+        <td th:text="${floorSpace.startDate}"></td>
+        <td th:text="${floorSpace.endDate}"></td>
+        <td th:text="${floorSpace.description}"></td>
+        <td>
+            <a th:href="@{/floor-spaces/edit/{id}(id=${floorSpace.id})}" class="edit-btn">Chỉnh sửa</a>
+            <a th:href="@{/floor-spaces/delete/{id}(id=${floorSpace.id})}" class="delete-btn" onclick="return confirm('Bạn có chắc muốn xóa mặt bằng này?')">Xóa</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

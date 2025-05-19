@@ -1,4 +1,6 @@
 package com.example.tcomplex;
 
-public interface FloorSpaceRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface FloorSpaceRepository extends JpaRepository<FloorSpace, Long> {
 }

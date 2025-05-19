@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Mặt Bằng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select, textarea {
+            width: 300px;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button, a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button {
+            background-color: #4CAF50;
+        }
+        a {
+            background-color: #f44336;
+            margin-left: 10px;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            display: block;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Thêm Mặt Bằng</h1>
+<form th:action="@{/floor-spaces/add}" th:object="${floorSpace}" method="post">
+    <label>Mã mặt bằng:</label>
+    <input type="text" th:field="*{code}" required pattern="[A-Z0-9]{3}-[A-Z0-9]{2}-[A-Z0-9]{2}-[A-Z0-9]{2}">
+    <span class="error" th:errors="*{code}"></span>
+
+    <label>Diện tích:</label>
+    <input type="number" th:field="*{area}" required min="20" step="0.01">
+    <span class="error" th:errors="*{area}"></span>
+
+    <label>Trạng thái:</label>
+    <select th:field="*{status}" required>
+        <option value="">Chọn trạng thái</option>
+        <option th:each="status : ${statuses}" th:value="${status}" th:text="${status.displayName}"></option>
+    </select>
+    <span class="error" th:errors="*{status}"></span>
+
+    <label>Tầng:</label>
+    <input type="number" th:field="*{floor}" required min="1" max="15">
+    <span class="error" th:errors="*{floor}"></span>
+
+    <label>Loại văn phòng:</label>
+    <select th:field="*{type}" required>
+        <option value="">Chọn loại văn phòng</option>
+        <option th:each="type : ${types}" th:value="${type}" th:text="${type.displayName}"></option>
+    </select>
+    <span class="error" th:errors="*{type}"></span>
+
+    <label>Giá cho thuê:</label>
+    <input type="number" th:field="*{price}" required min="1000000">
+    <span class="error" th:errors="*{price}"></span>
+
+    <label>Ngày bắt đầu:</label>
+    <input type="date" th:field="*{startDate}" required>
+    <span class="error" th:errors="*{startDate}"></span>
+
+    <label>Ngày kết thúc:</label>
+    <input type="date" th:field="*{endDate}" required>
+    <span class="error" th:errors="*{endDate}"></span>
+
+    <label>Mô tả:</label>
+    <textarea th:field="*{description}"></textarea>
+    <span class="error" th:errors="*{description}"></span>
+
+    <div style="text-align: center;">
+        <button type="submit">Lưu</button>
+        <a href="/floor-spaces/list">Hủy</a>
+    </div>
+</form>
+</body>
+</html>
